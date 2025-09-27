@@ -1,19 +1,19 @@
-# Wishora
+# wishora
 
-Wishora is a community app where people in Nigeria can share their needs ("wishes") and those who have resources can help fulfill them.
+wishora is a community app where people in nigeria can share their needs ("wishes") and those who have resources can help fulfill them.
 
-## Features
-- Post wishes
-- Browse community wishes
-- Track wish fulfillment
-- Connect helpers and receivers
+## features
+- post wishes
+- browse community wishes
+- track wish fulfillment
+- connect helpers and receivers
 
-## Tech Stack
-- Backend: Node.js, Express, MongoDB
-- Frontend: React Native (Expo)
-- Deployment: Replit / Heroku / Render
+## tech stack
+- backend: node.js, express, mongodb
+- frontend: react native (expo)
+- deployment: replit / heroku / render
 
-## Setup
-1. Clone repo
+## setup
+1. clone repo
 2. `cd backend && npm install && npm run dev`
-3. `cd frontend && npm install && npm start`
+3. `cd frontend && npm install && npm start`.
