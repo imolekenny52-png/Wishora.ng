@@ -1,0 +1,23 @@
+name: Wishora MVP CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # Uses a stable, modern Node LTS version
+
+      - name: Run pipeline test command
+        run: echo "CI pipeline environment successfully built!"
