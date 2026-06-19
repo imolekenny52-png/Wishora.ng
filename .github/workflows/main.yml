@@ -7,38 +7,49 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  # JOB 1: Test and validate the Express Backend
+  backend-services:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ./server # Tells GitHub to jump inside your backend folder
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js environment
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Install Project Dependencies
-        run: |
-          if [ -f package.json ]; then
-            npm ci
-          else
-            echo "No root package.json found. Skipping root install."
-          fi
+      - name: Install Backend Packages
+        run: npm install  # Or 'npm ci' if you have a package-lock.json inside 'server'
 
-      - name: Run Build
+      - name: Start Backend Test Suite
         run: |
-          if grep -q '"build":' package.json 2>/dev/null; then
-            npm run build
-          else
-            echo "No build script defined. Skipping build phase."
-          fi
-
-      - name: Run Automated Tests
-        run: |
-          if grep -q '"test":' package.json 2>/dev/null; then
+          if grep -q '"test":' package.json; then
             npm test
           else
-            echo "No test suite configured yet. Ready for your first tests!"
+            echo "No backend tests written yet! Ready when you are."
           fi
+
+  # JOB 2: Test and validate the React Frontend
+  frontend-services:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client # Tells GitHub to jump inside your frontend folder
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Frontend Packages
+        run: npm install
+
+      - name: Build React Application
+        run: npm run build
