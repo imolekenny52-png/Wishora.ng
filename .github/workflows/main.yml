@@ -17,7 +17,29 @@ jobs:
       - name: Set up Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # Uses a stable, modern Node LTS version
+          node-version: '18'
+          cache: 'npm'
 
-      - name: Run pipeline test command
-        run: echo "CI pipeline environment successfully built!"
+      - name: Install Project Dependencies
+        run: |
+          if [ -f package.json ]; then
+            npm ci
+          else
+            echo "No root package.json found. Skipping root install."
+          fi
+
+      - name: Run Build
+        run: |
+          if grep -q '"build":' package.json 2>/dev/null; then
+            npm run build
+          else
+            echo "No build script defined. Skipping build phase."
+          fi
+
+      - name: Run Automated Tests
+        run: |
+          if grep -q '"test":' package.json 2>/dev/null; then
+            npm test
+          else
+            echo "No test suite configured yet. Ready for your first tests!"
+          fi
